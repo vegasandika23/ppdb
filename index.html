@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAUD MAHKOTA RAYA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     HALAMAN LOGIN
+============================================================ -->
+<div id="page-login" class="page active">
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-left">
+        <div class="big-logo">🎓</div>
+        <h1>PAUD Mahkota Raya</h1>
+        <p>Sistem Pendaftaran Siswa Baru<br>Tahun Ajaran 2025/2026</p>
+        <div class="info-pill"><span>📧</span> paudmahkotaraya@gmail.com</div>
+        <div class="info-pill"><span>🕗</span> Senin–Jumat, 07.00–12.00 WIB</div>
+        <div class="info-pill"><span>📍</span> Desa Koata Raya Lembak, Kec. Pajar Bulan</div>
+      </div>
+      <div class="login-right">
+        <h2>Selamat Datang</h2>
+        <p class="subtitle">Silakan masuk sesuai peran Anda</p>
+
+        <div class="tab-row">
+          <button class="tab active" onclick="switchLoginTab('user', this)">Orang Tua / Siswa</button>
+          <button class="tab" onclick="switchLoginTab('admin', this)">Admin / Guru</button>
+        </div>
+
+        <!-- PANEL USER -->
+        <div id="panel-user">
+          <button class="btn-google" onclick="loginGoogle()">
+            <svg class="google-icon" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            Masuk dengan Google
+          </button>
+          <div class="divider"><span>atau masuk dengan email</span></div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="user-email" placeholder="nama@gmail.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="user-pass" placeholder="Password Anda" />
+          </div>
+          <button id="btn-login-user" class="btn-full" onclick="loginUser()">Masuk</button>
+          <div id="user-err" class="err-msg"></div>
+          <p style="font-size:11px;color:#aaa;text-align:center;margin-top:12px;">
+            Belum punya akun?
+            <span style="color:#1976d2;cursor:pointer;font-weight:700;" onclick="showPage('page-form')">Daftar siswa baru</span>
+          </p>
+        </div>
+
+        <!-- PANEL ADMIN -->
+        <div id="panel-admin" style="display:none;">
+          <div class="form-group">
+            <label>Username Admin</label>
+            <input type="text" id="admin-user" placeholder="admin" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="admin-pass" placeholder="••••••••" />
+          </div>
+          <button id="btn-login-admin" class="btn-full" onclick="loginAdmin()">Masuk sebagai Admin</button>
+          <div id="admin-err" class="err-msg"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HALAMAN HOME (setelah login user)
+============================================================ -->
+<div id="page-home" class="page">
+  <nav>
+    <div class="nav-logo"><div class="logo-circle">M</div>PAUD Mahkota Raya</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div id="user-name-display" style="font-size:13px;font-weight:700;color:#1251a3;"></div>
+      <div id="user-avatar-nav" class="user-avatar"></div>
+      <button class="nav-btn" onclick="logoutUser()">Keluar</button>
+      <button class="nav-btn primary" onclick="showPage('page-form')">📝 Daftar</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="school-logo-big">🎓</div>
+    <div class="school-name">PAUD Mahkota Raya</div>
+    <div class="school-sub">Pendidikan Anak Usia Dini</div>
+    <p class="school-tagline">Membentuk generasi cerdas, kreatif, dan berkarakter sejak dini dalam lingkungan belajar yang menyenangkan.</p>
+    <div class="info-box">
+      <h3>📞 Informasi & Kontak</h3>
+      <div class="info-row"><div class="info-icon">📧</div><span><b>Gmail:</b> paudmahkotaraya@gmail.com</span></div>
+      <div class="info-row"><div class="info-icon">🕗</div><span><b>Jam Operasional:</b> Senin–Jumat, 07.00–12.00 WIB</span></div>
+      <div class="info-row"><div class="info-icon">📍</div><span><b>Alamat:</b> Desa Koata Raya Lembak, Kec. Pajar Bulan</span></div>
+      <div class="info-row"><div class="info-icon">📱</div><span><b>Telepon:</b> (0711) 123-4567</span></div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn-main" onclick="showPage('page-form')">📝 Daftar Sekarang</button>
+      <button class="btn-outline" onclick="cekStatus()">🔍 Cek Status Pendaftaran</button>
+    </div>
+  </div>
+  <div class="features">
+    <h2>Mengapa PAUD Mahkota Raya?</h2>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-icon">👩‍🏫</div><div class="feature-title">Guru Berpengalaman</div><div class="feature-desc">Tenaga pendidik profesional dan berdedikasi</div></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Kurikulum Kreatif</div><div class="feature-desc">Belajar sambil bermain dengan pendekatan holistik</div></div>
+      <div class="feature-card"><div class="feature-icon">🌳</div><div class="feature-title">Lingkungan Aman</div><div class="feature-desc">Area bermain yang aman, bersih, dan nyaman</div></div>
+      <div class="feature-card"><div class="feature-icon">📱</div><div class="feature-title">Pantau Online</div><div class="feature-desc">Orang tua bisa memantau perkembangan anak</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:14px;font-size:12px;color:#bbb;border-top:0.5px solid #e2f0fb;">© 2025 PAUD Mahkota Raya</div>
+</div>
+
+<!-- ============================================================
+     HALAMAN FORM PENDAFTARAN
+============================================================ -->
+<div id="page-form" class="page">
+  <nav>
+    <div class="nav-logo"><div class="logo-circle">M</div>PAUD Mahkota Raya</div>
+    <button class="nav-btn" onclick="showPage('page-home')">← Beranda</button>
+  </nav>
+  <div class="form-wrap">
+    <div class="form-header">
+      <h2>📝 Formulir Pendaftaran Siswa Baru</h2>
+      <p>Tahun Ajaran 2025/2026 — Isi dengan lengkap dan benar</p>
+    </div>
+
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step active" id="s1">1</div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step" id="s2">2</div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step" id="s3">3</div>
+    </div>
+
+    <!-- STEP 1 — Data Anak -->
+    <div id="step-1">
+      <div class="form-section">
+        <h3>👶 Data Anak</h3>
+        <div class="form-group">
+          <label>Nama Lengkap Anak <span style="color:red">*</span></label>
+          <input type="text" id="f-nama-anak" placeholder="Nama sesuai akta kelahiran" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Jenis Kelamin <span style="color:red">*</span></label>
+            <select id="f-jk">
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Lahir <span style="color:red">*</span></label>
+            <input type="date" id="f-tgl-lahir" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tempat Lahir <span style="color:red">*</span></label>
+            <input type="text" id="f-tempat-lahir" placeholder="Kota/Kabupaten" />
+          </div>
+          <div class="form-group">
+            <label>Anak ke-</label>
+            <input type="number" id="f-anak-ke" min="1" max="20" value="1" />
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <button class="btn-main" onclick="nextStep(2)">Lanjut →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — Data Orang Tua -->
+    <div id="step-2" style="display:none;">
+      <div class="form-section">
+        <h3>👨‍👩‍👧 Data Orang Tua / Wali</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Ayah <span style="color:red">*</span></label>
+            <input type="text" id="f-nama-ayah" placeholder="Nama lengkap ayah" />
+          </div>
+          <div class="form-group">
+            <label>Nama Ibu <span style="color:red">*</span></label>
+            <input type="text" id="f-nama-ibu" placeholder="Nama lengkap ibu" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pekerjaan Ayah</label>
+            <input type="text" id="f-pkj-ayah" placeholder="Pekerjaan ayah" />
+          </div>
+          <div class="form-group">
+            <label>Pekerjaan Ibu</label>
+            <input type="text" id="f-pkj-ibu" placeholder="Pekerjaan ibu" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>No. HP / WhatsApp <span style="color:red">*</span></label>
+            <input type="tel" id="f-no-hp" placeholder="0812-xxxx-xxxx" />
+          </div>
+          <div class="form-group">
+            <label>Email Orang Tua</label>
+            <input type="email" id="f-email-ortu" placeholder="email@gmail.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Alamat Lengkap <span style="color:red">*</span></label>
+          <textarea id="f-alamat" rows="2" placeholder="Jl. Nama Jalan No. RT/RW, Kelurahan, Kecamatan"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:space-between;">
+        <button class="btn-outline" onclick="nextStep(1)">← Kembali</button>
+        <button class="btn-main" onclick="nextStep(3)">Lanjut →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — Program & Konfirmasi -->
+    <div id="step-3" style="display:none;">
+      <div class="form-section">
+        <h3>📋 Program & Konfirmasi</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Program yang Dipilih <span style="color:red">*</span></label>
+            <select id="f-program">
+              <option value="TK A">TK A (usia 4–5 tahun)</option>
+              <option value="TK B">TK B (usia 5–6 tahun)</option>
+              <option value="Kelompok Bermain">Kelompok Bermain (usia 2–4 tahun)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tahun Ajaran</label>
+            <select id="f-tahun-ajaran">
+              <option value="2025/2026">2025/2026</option>
+              <option value="2026/2027">2026/2027</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Riwayat Penyakit / Alergi</label>
+          <textarea id="f-riwayat" rows="2" placeholder="Jika tidak ada, tulis 'Tidak ada'"></textarea>
+        </div>
+        <div style="background:#f0f7ff;border-radius:10px;padding:13px;margin-top:6px;font-size:12px;color:#444;line-height:1.7;">
+          <b>📋 Dokumen saat daftar ulang:</b><br>
+          • Fotokopi Akta Kelahiran (2 lembar)<br>
+          • Fotokopi KK (2 lembar)<br>
+          • Pas foto 3×4 (4 lembar)<br>
+          • Surat Keterangan Sehat
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:space-between;">
+        <button class="btn-outline" onclick="nextStep(2)">← Kembali</button>
+        <button id="btn-submit-form" class="btn-main" onclick="submitForm()">✅ Kirim Pendaftaran</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     HALAMAN SUCCESS
+============================================================ -->
+<div id="page-success" class="page">
+  <nav><div class="nav-logo"><div class="logo-circle">M</div>PAUD Mahkota Raya</div></nav>
+  <div class="form-wrap" style="max-width:500px;">
+    <div class="success-wrap">
+      <div class="check">🎉</div>
+      <h2>Pendaftaran Berhasil!</h2>
+      <p>Terima kasih! Tim kami akan menghubungi Anda dalam 1–3 hari kerja untuk konfirmasi lebih lanjut.</p>
+      <div class="alert">
+        <span>📋</span>
+        <span>Nomor pendaftaran: <b id="reg-number">PAUD-2025-001</b></span>
+      </div>
+      <p style="font-size:12px;color:#888;margin-bottom:16px;">Simpan nomor ini untuk mengecek status pendaftaran Anda.</p>
+      <button class="btn-main" onclick="showPage('page-home')">← Kembali ke Beranda</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     DASHBOARD ADMIN
+============================================================ -->
+<div id="page-dashboard" class="page">
+  <div class="dash-wrap">
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="s-circle">🎓</div>
+        <span>PAUD Mahkota Raya</span>
+        <small>Panel Administrator</small>
+      </div>
+      <div class="menu-item active" onclick="showDashTab('tab-overview', this)"><span class="menu-icon">📊</span> Dashboard</div>
+      <div class="menu-item" onclick="showDashTab('tab-pendaftar', this)"><span class="menu-icon">📝</span> Data Pendaftar</div>
+      <div class="menu-item" onclick="showDashTab('tab-terima', this)"><span class="menu-icon">✅</span> Diterima</div>
+      <div class="menu-item" onclick="showDashTab('tab-laporan', this)"><span class="menu-icon">📄</span> Laporan</div>
+      <button class="logout-btn" onclick="logoutAdmin()">⬅ Keluar</button>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- TAB OVERVIEW -->
+      <div id="tab-overview">
+        <div class="dash-header">
+          <h2>📊 Dashboard Admin</h2>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;color:#888;">Tahun Ajaran 2025/2026</span>
+            <button class="nav-btn" onclick="loadDashboard()" title="Refresh data">🔄 Refresh</button>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Pendaftar</div>
+            <div class="stat-value sv-blue" id="stat-total">—</div>
+            <div class="stat-desc">Data dari database</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Diterima</div>
+            <div class="stat-value sv-green" id="stat-diterima">—</div>
+            <div class="stat-desc">Sudah diverifikasi</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Menunggu</div>
+            <div class="stat-value sv-orange" id="stat-menunggu">—</div>
+            <div class="stat-desc">Perlu verifikasi</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Kuota Tersisa</div>
+            <div class="stat-value sv-purple" id="stat-tersisa">—</div>
+            <div class="stat-desc">dari 24 total</div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header"><h3>Pendaftar Terbaru</h3></div>
+          <table>
+            <thead><tr><th>No. Daftar</th><th>Nama Anak</th><th>Program</th><th>Tgl. Daftar</th><th>Status</th></tr></thead>
+            <tbody id="tbody-overview">
+              <tr><td colspan="5" style="text-align:center;color:#aaa;">⏳ Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB DATA PENDAFTAR -->
+      <div id="tab-pendaftar" style="display:none;">
+        <div class="dash-header"><h2>📝 Semua Data Pendaftar</h2></div>
+        <div class="table-wrap">
+          <div class="table-header">
+            <h3>Daftar Pendaftaran</h3>
+            <input class="table-search" placeholder="Cari nama, nomor..." oninput="filterTable(this)" />
+          </div>
+          <table>
+            <thead><tr><th>No. Daftar</th><th>Nama Anak</th><th>JK</th><th>Program</th><th>Orang Tua</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="table-body">
+              <tr><td colspan="7" style="text-align:center;color:#aaa;">⏳ Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB DITERIMA -->
+      <div id="tab-terima" style="display:none;">
+        <div class="dash-header"><h2>✅ Siswa Diterima</h2></div>
+        <div class="table-wrap">
+          <div class="table-header"><h3>Daftar Siswa Diterima</h3></div>
+          <table>
+            <thead><tr><th>No.</th><th>Nama Anak</th><th>Program</th><th>Tgl. Diterima</th><th>No. HP Ortu</th></tr></thead>
+            <tbody id="tbody-diterima">
+              <tr><td colspan="5" style="text-align:center;color:#aaa;">⏳ Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB LAPORAN -->
+      <div id="tab-laporan" style="display:none;">
+        <div class="dash-header"><h2>📄 Laporan Penerimaan</h2></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px;">
+          <div class="stat-card"><div class="stat-label">TK B</div><div class="stat-value sv-blue" id="stat-tkb">—</div><div class="stat-desc">dari 10 kuota</div></div>
+          <div class="stat-card"><div class="stat-label">TK A</div><div class="stat-value sv-green" id="stat-tka">—</div><div class="stat-desc">dari 10 kuota</div></div>
+          <div class="stat-card"><div class="stat-label">Kelompok Bermain</div><div class="stat-value sv-orange" id="stat-kb">—</div><div class="stat-desc">dari 4 kuota</div></div>
+          <div class="stat-card"><div class="stat-label">Total Pendaftar</div><div class="stat-value sv-purple" id="stat-total-lap">—</div><div class="stat-desc">tahun ajaran ini</div></div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header"><h3>Rekap per Program</h3></div>
+          <table>
+            <thead><tr><th>Program</th><th>Pendaftar</th><th>Diterima</th><th>Ditolak</th><th>Menunggu</th><th>% Terisi</th></tr></thead>
+            <tbody id="tbody-laporan">
+              <tr><td colspan="6" style="text-align:center;color:#aaa;">⏳ Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /dash-content -->
+  </div><!-- /dash-wrap -->
+</div>
+<!-- CEK STATUS PENDAFTARAN -->
+<div id="page-status" class="page">
+  <nav>
+    <div class="nav-logo"><div class="logo-circle">M</div>PAUD Mahkota Raya</div>
+    <button class="nav-btn" onclick="showPage('page-home')">← Beranda</button>
+  </nav>
+  <div class="form-wrap" style="max-width:560px;">
+    <div class="form-header">
+      <h2>🔍 Cek Status Pendaftaran</h2>
+      <p>Masukkan nomor pendaftaran Anda untuk melihat hasil seleksi</p>
+    </div>
+
+    <!-- Form Pencarian -->
+    <div id="status-search-box" class="form-section">
+      <h3>Masukkan Nomor Pendaftaran</h3>
+      <div class="form-group">
+        <label>Nomor Pendaftaran</label>
+        <input type="text" id="input-nomor" placeholder="Contoh: PAUD-2025-001" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()" />
+      </div>
+      <div class="form-group">
+        <label>Nama Anak (opsional, untuk verifikasi)</label>
+        <input type="text" id="input-nama" placeholder="Nama lengkap anak" />
+      </div>
+      <div id="status-err" class="err-msg">Nomor pendaftaran tidak ditemukan. Periksa kembali nomor Anda.</div>
+      <button class="btn-full" onclick="cariStatus()" style="margin-top:8px;">🔍 Cari Status</button>
+      <p style="font-size:11px;color:#aaa;text-align:center;margin-top:10px;">
+        Belum punya nomor pendaftaran? <span style="color:#1976d2;cursor:pointer;font-weight:700;" onclick="showPage('page-form')">Daftar sekarang</span>
+      </p>
+    </div>
+
+    <!-- Hasil Status -->
+    <div id="status-result" style="display:none;">
+      <!-- Card Hasil -->
+      <div id="result-card" class="status-result-card">
+        <div id="result-icon-wrap" class="result-icon-wrap">
+          <div id="result-icon" class="result-icon">✅</div>
+        </div>
+        <div id="result-status-text" class="result-status-text">Diterima</div>
+        <div id="result-pesan" class="result-pesan">Selamat! Anak Anda diterima di PAUD Mahkota Raya.</div>
+
+        <div class="result-detail-box">
+          <div class="result-row"><span class="result-label">No. Pendaftaran</span><span id="res-nomor" class="result-value">—</span></div>
+          <div class="result-row"><span class="result-label">Nama Anak</span><span id="res-nama" class="result-value">—</span></div>
+          <div class="result-row"><span class="result-label">Program</span><span id="res-program" class="result-value">—</span></div>
+          <div class="result-row"><span class="result-label">Orang Tua</span><span id="res-ortu" class="result-value">—</span></div>
+          <div class="result-row"><span class="result-label">Tanggal Daftar</span><span id="res-tanggal" class="result-value">—</span></div>
+          <div class="result-row"><span class="result-label">Status</span><span id="res-badge" class="result-value">—</span></div>
+        </div>
+
+        <div id="result-info-box" class="result-info-box"></div>
+      </div>
+
+      <button class="btn-outline" onclick="resetCekStatus()" style="width:100%;margin-top:14px;">🔄 Cari Nomor Lain</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
